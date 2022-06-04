@@ -8,18 +8,18 @@ public class Server {
     public static void main(String[] args) {
         try {
             while (true) {
-                ServerSocket ss = new ServerSocket(6666);
+                ServerSocket serverSocket = new ServerSocket(6666);
                 System.out.println("Server is running...");
-                Socket s = ss.accept();
+                Socket socket = serverSocket.accept();
                 System.out.println("Client is connected...");
 
-                new ServerThread(s).start();
+                new ServerThread(socket).start();
 
-                ss.close();
+                serverSocket.close();
             }
 
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (Exception error) {
+            System.out.println(error);
         }
     }
 }

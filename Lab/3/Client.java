@@ -6,32 +6,32 @@ public class Client {
 
     public static void main(String[] args) {
         try {  
-            Socket s = new Socket("localhost:", 6666);
+            Socket socket = new Socket("Is running at Localhost:", 6666);
             
-            DataOutputStream output = new DataOutputStream(s.getOutputStream());
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             PrintWriter writer = new PrintWriter(output, true);
 
-            InputStream input = s.getInputStream();
+            InputStream input = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
             Scanner sc = new Scanner (System.in);
             
             while(true){
-                System.out.println("Write something to server = ");
+                System.out.println("Input to server: ");
                 String user_input = sc.nextLine();
                 writer.println(user_input);
                 String from_server = reader.readLine();
                 
-                if(from_server.equalsIgnoreCase("GoodBYE!"))
+                if(from_server.equalsIgnoreCase("Asta La Vist!a"))
                     break;
                 else
-                    System.out.println("Response from server: " + reader.readLine());
+                    System.out.println("You got response: " + reader.readLine());
             }
             
-            s.close();
+            socket.close();
 
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (Exception error) {
+            System.out.println(error);
         }
     }
 }

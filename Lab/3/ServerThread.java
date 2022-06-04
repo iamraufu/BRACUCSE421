@@ -1,28 +1,28 @@
 public class ServerThread extends Thread {
-    Socket s;
+    Socket socket;
 
-    ServerThread(Socket s) {
-        this.s = s;
+    ServerThread(Socket socket) {
+        this.socket = socket;
     }
 
     @Override
     public void run() {
-        DataOutputStream output = new DataOutputStream(s.getOutputStream());
-        PrintWriter writer = new PrintWriter(output, true);
+        DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+        PrintWriter w = new PrintWriter(output, true);
 
-        InputStream input = s.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        InputStream input = socket.getInputStream();
+        BufferedReader r = new BufferedReader(new InputStreamReader(input));
 
         String today = new Date().toString();
-        writer.println(today);
+        w.println(today);
 
         while (true) {
-            String from_client = reader.readLine();
-            if (from_client.equalsIgnoreCase("end game")) {
+            String response_from_client = r.readLine();
+            if (response_from_client.equalsIgnoreCase("end game")) {
                 writer.println("Good Bye!");
                 break;
             } else {
-                writer.println(from_client);
+                writer.println(response_from_client);
             }
         }
     }
